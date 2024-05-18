@@ -29,7 +29,7 @@
                 </button>
             </div>
         </form>
-        <form id="edit-form"><!--Formulário de edição que será excluído depois-->
+        <form id="edit-form" class="hide"><!--Formulário de edição que será excluído depois-->
             <p>Edite sua tarefa:</p>
             <div class="form-control">
                 <input type="text" id="edit-input">
@@ -37,8 +37,9 @@
                     <i class="fa-solid fa-check-double"></i>
                 </button>
             </div>
+            <button id="cancel-edit-btn">Cancelar</button>
         </form>
-        <button id="cancel-edit-btn">Cancelar</button>
+
         <div id="toolbar">
             <div id="search">
                 <h4>Pesquisar:</h4>
@@ -59,8 +60,17 @@
             </div>
         </div>
         <div id="todo-list">
-            <div class="todo">
+            <div class="todo done">
                 <h3>Estudar JavaScript</h3>
+                <button class="finish-todo">
+                    <i class="fa-solid fa-check"></i></button>
+                <button class="edit-todo">
+                    <i class="fa-solid fa-pen"></i></button>
+                <button class="remove-todo">
+                    <i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="todo">
+                <h3>Estudar C#</h3>
                 <button class="finish-todo">
                     <i class="fa-solid fa-check"></i></button>
                 <button class="edit-todo">
