@@ -78,7 +78,7 @@ select {
   display: flex;
 }
 
-.form-control {
+.form-control input {
   margin-right: 0.3rem;
 }
 
@@ -138,21 +138,21 @@ select {
   gap: 16px;
 }
 
-.todo h3{
-  flex:1;
+.todo h3 {
+  flex: 1;
   font-size: 0.9 rem;
 }
 
-.todo button{
-margin-left: 0.4rem
+.todo button {
+  margin-left: 0.4rem;
 }
 
-.done{
-background-color: #395169;
+.done {
+  background-color: #395169;
 }
 
-.done h3{
-  color: #FFF;
+.done h3 {
+  color: #fff;
   text-decoration: line-through;
   font-style: italic;
 }
