@@ -6,6 +6,7 @@ const editForm = document.querySelector("#edit-form")
 const editInput = document.querySelector("#edit-input")
 const cancelEditBtn = document.querySelector("#cancel-edit-btn")
 
+let oldInputValue;
 
 //funções
 const saveTodo = (text) => {
@@ -28,24 +29,94 @@ const saveTodo = (text) => {
     todo.appendChild(editBtn)
 
     const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("remove-todo")
-    deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'
-    todo.appendChild(deleteBtn)
+    deleteBtn.classList.add("remove-todo");
+    deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    todo.appendChild(deleteBtn);
 
-    todoList.appendChild(todo)
+    todoList.appendChild(todo);
 
-    todoInput.value="";
+    todoInput.value = "";
     todoInput.focus();
 };
+
+const toggleForms = () => {
+    editForm.classList.toggle("hide");
+    todoForm.classList.toggle("hide");
+    todoList.classList.toggle("hide");
+};
+
+const updateTodo = (text) => {
+    const todos = document.querySelectorAll(".todo");
+
+    todos.forEach((todo) => {
+        let todoTitle = todo.querySelector("h3");
+
+        console.log(todoTitle,text)
+        if (todoTitle.innerText === oldInputValue) {
+            todoTitle.innerText = text;
+        }
+
+    });
+
+};
+
 
 
 //Eventos
 todoForm.addEventListener("submit", (e) => {
     e.preventDefault();
+
     const inputValue = todoInput.value;
 
     if (inputValue) {//se algum valor foi digitado, irei salvar
-        saveTodo(inputValue)
+        saveTodo(inputValue);
     }
+
+})
+
+document.addEventListener("click", (e) => {
+    const targetEl = e.target;
+    const parentEl = targetEl.closest("div");//Como neste evento as coisas são aplicadas no evento pai (div) mais próxima, deve ser fazer a referência aqui, para poder aplicar os efeitos
+
+    let todoTitle;
+
+
+    if (parentEl && parentEl.querySelector("h3")) { //se o elemento pai existe, e o elemento pai é h3, que são os requisitos para ter um título
+        todoTitle = parentEl.querySelector("h3").innerText;
+    }
+
+    if (targetEl.classList.contains("finish-todo")) {
+        parentEl.classList.toggle("done");//usa o toggle ao invés do add pois ao clicar no botão várias vezes vai ativar várias vezes.
+    }
+
+    if (targetEl.classList.contains("remove-todo")) {
+        parentEl.remove();
+    }
+
+    if (targetEl.classList.contains("edit-todo")) {//quando ativar, precisa esconder o formulario de adicionar e mostrar o de edição
+        toggleForms();
+
+        editInput.value = todoTitle;
+        oldInputValue = todoTitle;
+    }
+
+})
+
+cancelEditBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleForms();
+
+})
+
+editForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const editInputValue = editInput.value;
+
+    if (editInputValue) {
+        updateTodo(editInputValue)
+    }
+
+    toggleForms();
 
 })
